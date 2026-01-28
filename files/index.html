@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Alma del Tango - Authentic Argentine Tango School. Experience the passion, connection, and artistry of Buenos Aires tango tradition.">
+    <title>Alma del Tango | Argentine Tango School</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-black: #0a0a0a;
+            --color-charcoal: #1a1a1a;
+            --color-dark: #242424;
+            --color-burgundy: #6B0F1A;
+            --color-wine: #8B0000;
+            --color-crimson: #A41034;
+            --color-cream: #F5F0E8;
+            --color-ivory: #FDFBF7;
+            --color-gold: #C9A962;
+            --color-gold-light: #D4B978;
+            --color-gray: #888888;
+            --color-gray-light: #CCCCCC;
+            --font-display: 'Cormorant Garamond', Georgia, serif;
+            --font-body: 'Jost', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: var(--font-body);
+            font-weight: 300;
+            line-height: 1.7;
+            color: var(--color-charcoal);
+            background-color: var(--color-ivory);
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+        a { color: inherit; text-decoration: none; transition: 0.3s ease; }
+        ul { list-style: none; }
+        h1, h2, h3, h4, h5, h6 { font-family: var(--font-display); font-weight: 400; line-height: 1.2; }
+        .container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
+
+        /* Navigation */
+        .nav {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+            padding: 1.5rem 0; transition: 0.3s ease;
+        }
+        .nav.scrolled { background: rgba(10, 10, 10, 0.95); backdrop-filter: blur(10px); padding: 1rem 0; }
+        .nav-container {
+            max-width: 1200px; margin: 0 auto; padding: 0 1.5rem;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .logo-text {
+            font-family: var(--font-display); font-size: 1.5rem; font-weight: 500;
+            color: var(--color-cream); letter-spacing: 0.05em;
+        }
+        .nav-menu { display: flex; gap: 2.5rem; }
+        .nav-link {
+            font-size: 0.875rem; font-weight: 400; color: var(--color-cream);
+            letter-spacing: 0.1em; text-transform: uppercase; position: relative; padding: 0.5rem 0;
+        }
+        .nav-link::after {
+            content: ''; position: absolute; bottom: 0; left: 0;
+            width: 0; height: 1px; background: var(--color-gold); transition: 0.3s ease;
+        }
+        .nav-link:hover::after, .nav-link.active::after { width: 100%; }
+        .nav-toggle {
+            display: none; flex-direction: column; gap: 5px;
+            background: none; border: none; cursor: pointer; padding: 10px;
+        }
+        .nav-toggle span { width: 24px; height: 1px; background: var(--color-cream); transition: 0.3s ease; }
+
+        /* Hero */
+        .hero {
+            position: relative; min-height: 100vh;
+            display: flex; align-items: center; justify-content: center; overflow: hidden;
+        }
+        .hero-bg {
+            position: absolute; inset: 0;
+            background: linear-gradient(135deg, var(--color-black) 0%, var(--color-charcoal) 50%, var(--color-burgundy) 100%);
+        }
+        .hero-overlay {
+            position: absolute; inset: 0;
+            background: radial-gradient(ellipse at 30% 20%, rgba(107, 15, 26, 0.4) 0%, transparent 50%),
+                        radial-gradient(ellipse at 70% 80%, rgba(139, 0, 0, 0.3) 0%, transparent 50%);
+        }
+        .hero-grain {
+            position: absolute; inset: 0; opacity: 0.04;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+        }
+        .hero-content {
+            position: relative; z-index: 10; text-align: center; padding: 2.5rem; max-width: 900px;
+        }
+        .hero-tagline {
+            font-size: 0.75rem; font-weight: 400; letter-spacing: 0.3em; text-transform: uppercase;
+            color: var(--color-gold); margin-bottom: 2.5rem;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+        .hero-title {
+            font-family: var(--font-display); font-size: clamp(2.5rem, 6vw, 4.5rem); font-weight: 300;
+            color: var(--color-cream); line-height: 1.1; margin-bottom: 2.5rem;
+        }
+        .title-line { display: block; animation: fadeInUp 0.8s ease-out both; }
+        .title-line:nth-child(1) { animation-delay: 0.4s; }
+        .title-line:nth-child(2) { animation-delay: 0.6s; }
+        .title-accent { font-style: italic; color: var(--color-gold-light); }
+        .hero-subtitle {
+            font-size: 1.125rem; font-weight: 300; color: var(--color-gray-light);
+            line-height: 1.8; margin-bottom: 3rem;
+            animation: fadeInUp 0.8s ease-out 0.8s both;
+        }
+        .hero-cta {
+            display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap;
+            animation: fadeInUp 0.8s ease-out 1s both;
+        }
+        .hero-scroll {
+            position: absolute; bottom: 3rem; left: 0; right: 0;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            text-align: center; width: 100%;
+            color: var(--color-gray); font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase;
+            animation: fadeInUp 0.8s ease-out 1.2s both;
+        }
+        .hero-scroll span { display: block; }
+        .scroll-line {
+            width: 1px; height: 60px;
+            background: linear-gradient(to bottom, var(--color-gold), transparent);
+            animation: scrollPulse 2s ease-in-out infinite;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex; align-items: center; justify-content: center; gap: 1rem;
+            font-family: var(--font-body); font-size: 0.8125rem; font-weight: 400;
+            letter-spacing: 0.15em; text-transform: uppercase; padding: 1rem 2rem;
+            border: none; cursor: pointer; transition: 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .btn-primary {
+            background: var(--color-burgundy); color: var(--color-cream); border: 1px solid var(--color-burgundy);
+        }
+        .btn-primary:hover {
+            background: var(--color-wine); border-color: var(--color-wine);
+            transform: translateY(-2px); box-shadow: 0 10px 30px rgba(107, 15, 26, 0.3);
+        }
+        .btn-secondary { background: transparent; color: var(--color-cream); border: 1px solid var(--color-gray); }
+        .btn-secondary:hover { border-color: var(--color-gold); color: var(--color-gold); }
+        .btn-ghost { background: transparent; color: var(--color-charcoal); border: 1px solid var(--color-charcoal); }
+        .btn-ghost:hover { background: var(--color-charcoal); color: var(--color-cream); }
+
+        /* Section Elements */
+        .section-label {
+            font-size: 0.75rem; font-weight: 400; letter-spacing: 0.3em; text-transform: uppercase;
+            color: var(--color-burgundy); margin-bottom: 1.5rem;
+        }
+        .section-label-light { color: var(--color-gold); }
+        .section-header { text-align: center; margin-bottom: 4rem; }
+        .section-title {
+            font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 400; color: var(--color-cream);
+        }
+
+        /* Intro Section */
+        .intro { padding: 8rem 0; background: var(--color-ivory); }
+        .intro .container {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
+        }
+        .intro-title {
+            font-family: var(--font-display); font-size: clamp(1.75rem, 3vw, 2.5rem);
+            font-weight: 400; color: var(--color-charcoal); line-height: 1.3; margin-bottom: 2rem;
+        }
+        .intro-text { font-size: 1rem; color: var(--color-gray); margin-bottom: 1.5rem; }
+        .visual-frame { position: relative; aspect-ratio: 3/4; max-width: 400px; margin-left: auto; }
+        .visual-inner { position: absolute; inset: 0; background: var(--color-charcoal); border: 1px solid var(--color-dark); }
+        .visual-placeholder {
+            position: absolute; inset: 0; display: flex; flex-direction: column;
+            align-items: center; justify-content: center; color: var(--color-wine);
+        }
+        .visual-placeholder svg { width: 60%; height: auto; margin-bottom: 1.5rem; opacity: 0.5; }
+        .visual-placeholder span { font-family: var(--font-display); font-size: 1rem; font-style: italic; color: var(--color-gray); }
+
+        /* Features Section */
+        .features { position: relative; padding: 8rem 0; overflow: hidden; }
+        .features-bg {
+            position: absolute; inset: 0; background: var(--color-charcoal);
+        }
+        .features-bg::before {
+            content: ''; position: absolute; inset: 0;
+            background: radial-gradient(ellipse at 20% 50%, rgba(107, 15, 26, 0.25) 0%, transparent 50%),
+                        radial-gradient(ellipse at 80% 80%, rgba(139, 0, 0, 0.2) 0%, transparent 40%);
+        }
+        .features .container { position: relative; z-index: 10; }
+        .features-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; }
+        .feature-card {
+            padding: 2.5rem; background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            transition: 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .feature-card:hover {
+            background: rgba(255, 255, 255, 0.05); border-color: rgba(201, 169, 98, 0.3);
+            transform: translateY(-5px);
+        }
+        .feature-number { font-family: var(--font-display); font-size: 0.875rem; color: var(--color-gold); margin-bottom: 1.5rem; opacity: 0.7; }
+        .feature-title { font-family: var(--font-display); font-size: 1.5rem; font-weight: 400; color: var(--color-cream); margin-bottom: 1rem; }
+        .feature-text { font-size: 0.9375rem; color: var(--color-gray); line-height: 1.8; }
+
+        /* Quote Section */
+        .quote-section { padding: 8rem 0; background: var(--color-ivory); text-align: center; }
+        .quote { max-width: 800px; margin: 0 auto; }
+        .quote p {
+            font-family: var(--font-display); font-size: clamp(1.5rem, 3vw, 2.25rem);
+            font-style: italic; font-weight: 300; color: var(--color-charcoal);
+            line-height: 1.5; margin-bottom: 2rem;
+        }
+        .quote cite { font-size: 0.875rem; font-style: normal; letter-spacing: 0.1em; color: var(--color-burgundy); }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 8rem 0; background: linear-gradient(135deg, var(--color-cream) 0%, #EDE8E0 100%);
+            text-align: center;
+        }
+        .cta-content { max-width: 600px; margin: 0 auto; }
+        .cta-title {
+            font-family: var(--font-display); font-size: clamp(2rem, 4vw, 2.75rem);
+            font-weight: 400; color: var(--color-charcoal); margin-bottom: 1.5rem;
+        }
+        .cta-text { font-size: 1.0625rem; color: var(--color-gray); margin-bottom: 2.5rem; }
+        .cta-buttons { display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap; }
+
+        /* Footer */
+        .footer { background: var(--color-black); padding: 4rem 0 2rem; }
+        .footer-content {
+            display: flex; justify-content: space-between; gap: 3rem;
+            padding-bottom: 3rem; border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .footer-logo {
+            font-family: var(--font-display); font-size: 1.5rem; font-weight: 500;
+            color: var(--color-cream); letter-spacing: 0.05em; display: block; margin-bottom: 1rem;
+        }
+        .footer-tagline { font-size: 0.875rem; color: var(--color-gray); line-height: 1.6; }
+        .footer-links { display: flex; gap: 4rem; }
+        .footer-col h4 {
+            font-family: var(--font-body); font-size: 0.75rem; font-weight: 500;
+            letter-spacing: 0.2em; text-transform: uppercase; color: var(--color-gray); margin-bottom: 1.5rem;
+        }
+        .footer-col ul li { margin-bottom: 0.5rem; }
+        .footer-col a { font-size: 0.9375rem; color: var(--color-gray-light); }
+        .footer-col a:hover { color: var(--color-gold); }
+        .footer-bottom { padding-top: 2rem; text-align: center; }
+        .footer-bottom p { font-size: 0.8125rem; color: var(--color-gray); }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes scrollPulse {
+            0%, 100% { opacity: 0.3; transform: scaleY(1); }
+            50% { opacity: 1; transform: scaleY(1.2); }
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .intro .container { grid-template-columns: 1fr; gap: 3rem; }
+            .intro-visual { order: -1; }
+            .visual-frame { max-width: 300px; margin: 0 auto; }
+            .features-grid { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 768px) {
+            .nav-menu {
+                position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+                background: var(--color-black); flex-direction: column;
+                align-items: center; justify-content: center; gap: 2rem;
+                opacity: 0; visibility: hidden; transition: 0.3s ease;
+            }
+            .nav-menu.active { opacity: 1; visibility: visible; }
+            .nav-link { font-size: 1.25rem; }
+            .nav-toggle { display: flex; position: relative; z-index: 1001; }
+            .nav-toggle.active span:nth-child(1) { transform: rotate(45deg) translate(4px, 4px); }
+            .nav-toggle.active span:nth-child(2) { opacity: 0; }
+            .nav-toggle.active span:nth-child(3) { transform: rotate(-45deg) translate(4px, -4px); }
+            .hero-cta { flex-direction: column; align-items: center; }
+            .btn { width: 100%; max-width: 280px; }
+            .footer-content { flex-direction: column; text-align: center; }
+            .footer-links { justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav" id="nav">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo"><span class="logo-text">Alma del Tango</span></a>
+            <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
+                <span></span><span></span><span></span>
+            </button>
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="index.html" class="nav-link active">Home</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="contact.html" class="nav-link">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-bg"><div class="hero-overlay"></div><div class="hero-grain"></div></div>
+        <div class="hero-content">
+            <div class="hero-tagline">Belgrade • Since 2026</div>
+            <h1 class="hero-title">
+                <span class="title-line">Where Two Hearts</span>
+                <span class="title-line title-accent">Become One Movement</span>
+            </h1>
+            <p class="hero-subtitle">Discover the embrace that speaks without words.<br>Learn authentic Argentine Tango in its purest form.</p>
+            <div class="hero-cta">
+                <a href="contact.html" class="btn btn-primary">Join a Class</a>
+                <a href="about.html" class="btn btn-secondary">Meet the Teachers</a>
+            </div>
+        </div>
+        <div class="hero-scroll"><span>Scroll to explore</span><div class="scroll-line"></div></div>
+    </section>
+
+    <section class="intro">
+        <div class="container">
+            <div class="intro-content">
+                <div class="section-label">Our Philosophy</div>
+                <h2 class="intro-title">Tango is not just a dance.<br>It is a conversation between souls.</h2>
+                <p class="intro-text">At Alma del Tango, we believe that true tango cannot be rushed. It is felt, absorbed, and slowly revealed through years of dedicated practice and deep connection to the music. Our school preserves the authentic traditions of Buenos Aires, teaching not just steps, but the very essence of the embrace.</p>
+                <p class="intro-text">Founded by dancers who trained in the milongas of San Telmo and La Boca, we bring the warmth, passion, and precision of Argentine tango to every lesson. Here, you will learn to listen — to your partner, to the orchestra, and to the silence between the notes.</p>
+            </div>
+            <div class="intro-visual">
+                <div class="visual-frame">
+                    <div class="visual-inner">
+                        <img src="tango-hero.jpg" alt="Tango dancers in an intimate embrace at a milonga" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="features">
+        <div class="features-bg"></div>
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label section-label-light">What Sets Us Apart</div>
+                <h2 class="section-title">The Four Pillars of Our Teaching</h2>
+            </div>
+            <div class="features-grid">
+                <article class="feature-card">
+                    <div class="feature-number">01</div>
+                    <h3 class="feature-title">Authentic Tradition</h3>
+                    <p class="feature-text">We teach tango as it was born in the patios of Buenos Aires — raw, emotional, and deeply personal. No shortcuts, no fusion. Pure Argentine tradition.</p>
+                </article>
+                <article class="feature-card">
+                    <div class="feature-number">02</div>
+                    <h3 class="feature-title">The Sacred Embrace</h3>
+                    <p class="feature-text">Before the first step comes the embrace. We dedicate time to building trust, posture, and the subtle communication that makes two dancers one.</p>
+                </article>
+                <article class="feature-card">
+                    <div class="feature-number">03</div>
+                    <h3 class="feature-title">Musical Intelligence</h3>
+                    <p class="feature-text">Understanding D'Arienzo from Di Sarli, feeling the compás, dancing the pauses. We train your ears as much as your feet.</p>
+                </article>
+                <article class="feature-card">
+                    <div class="feature-number">04</div>
+                    <h3 class="feature-title">Refined Technique</h3>
+                    <p class="feature-text">Elegant walking, precise pivots, effortless turns. We build your foundation with patience and attention to every detail of movement.</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+
+
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2 class="cta-title">Begin Your Journey</h2>
+                <p class="cta-text">Whether you are taking your first steps or refining your art, we welcome you to experience the transformative power of authentic tango.</p>
+                <div class="cta-buttons">
+                    <a href="contact.html" class="btn btn-primary">Contact Us</a>
+                    <a href="about.html" class="btn btn-ghost">Learn More</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <span class="footer-logo">Alma del Tango</span>
+                    <p class="footer-tagline">The soul of Buenos Aires,<br>wherever you are.</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-col">
+                        <h4>Navigate</h4>
+                        <ul><li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li><li><a href="contact.html">Contact</a></li></ul>
+                    </div>
+                    <div class="footer-col">
+                        <h4>Connect</h4>
+                        <ul><li><a href="#">Instagram</a></li><li><a href="#">Facebook</a></li><li><a href="#">YouTube</a></li></ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom"><p>&copy; 2024 Alma del Tango. All rights reserved.</p></div>
+        </div>
+    </footer>
+
+    <script>
+        const nav = document.getElementById('nav');
+        window.addEventListener('scroll', () => {
+            nav.classList.toggle('scrolled', window.pageYOffset > 100);
+        }, { passive: true });
+
+        const navToggle = document.getElementById('nav-toggle');
+        const navMenu = document.getElementById('nav-menu');
+        navToggle.addEventListener('click', () => {
+            navToggle.classList.toggle('active');
+            navMenu.classList.toggle('active');
+            document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : '';
+        });
+    </script>
+</body>
+</html>

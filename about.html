@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Meet the teachers of Alma del Tango. Experienced Argentine tango instructors with deep roots in Buenos Aires tradition.">
+    <title>About Our Teachers | Alma del Tango</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-black: #0a0a0a;
+            --color-charcoal: #1a1a1a;
+            --color-dark: #242424;
+            --color-burgundy: #6B0F1A;
+            --color-wine: #8B0000;
+            --color-cream: #F5F0E8;
+            --color-ivory: #FDFBF7;
+            --color-gold: #C9A962;
+            --color-gold-light: #D4B978;
+            --color-gray: #888888;
+            --color-gray-light: #CCCCCC;
+            --font-display: 'Cormorant Garamond', Georgia, serif;
+            --font-body: 'Jost', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body { font-family: var(--font-body); font-weight: 300; line-height: 1.7; color: var(--color-charcoal); background-color: var(--color-ivory); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+        a { color: inherit; text-decoration: none; transition: 0.3s ease; }
+        ul { list-style: none; }
+        h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 400; line-height: 1.2; }
+        .container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
+
+        .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; padding: 1.5rem 0; background: var(--color-black); transition: 0.3s ease; }
+        .nav.scrolled { backdrop-filter: blur(10px); padding: 1rem 0; }
+        .nav-container { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; display: flex; justify-content: space-between; align-items: center; }
+        .logo-text { font-family: var(--font-display); font-size: 1.5rem; font-weight: 500; color: var(--color-cream); letter-spacing: 0.05em; }
+        .nav-menu { display: flex; gap: 2.5rem; }
+        .nav-link { font-size: 0.875rem; font-weight: 400; color: var(--color-cream); letter-spacing: 0.1em; text-transform: uppercase; position: relative; padding: 0.5rem 0; }
+        .nav-link::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 1px; background: var(--color-gold); transition: 0.3s ease; }
+        .nav-link:hover::after, .nav-link.active::after { width: 100%; }
+        .nav-toggle { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 10px; }
+        .nav-toggle span { width: 24px; height: 1px; background: var(--color-cream); transition: 0.3s ease; }
+
+        .page-header { position: relative; padding: 10rem 0 6rem; background: var(--color-charcoal); overflow: hidden; }
+        .page-header-bg { position: absolute; inset: 0; background: radial-gradient(ellipse at 30% 30%, rgba(107, 15, 26, 0.3) 0%, transparent 50%), radial-gradient(ellipse at 70% 70%, rgba(139, 0, 0, 0.2) 0%, transparent 40%); }
+        .page-header-content { position: relative; z-index: 10; text-align: center; }
+        .section-label { font-size: 0.75rem; font-weight: 400; letter-spacing: 0.3em; text-transform: uppercase; color: var(--color-gold); margin-bottom: 1.5rem; }
+        .page-title { font-family: var(--font-display); font-size: clamp(2.5rem, 5vw, 3.5rem); font-weight: 300; color: var(--color-cream); margin-bottom: 1.5rem; }
+        .page-subtitle { font-size: 1.0625rem; color: var(--color-gray-light); max-width: 600px; margin: 0 auto; line-height: 1.8; }
+
+        .teachers { padding: 6rem 0; background: var(--color-ivory); }
+        .teacher-card { display: grid; grid-template-columns: 320px 1fr; gap: 4rem; align-items: start; padding: 4rem 0; border-bottom: 1px solid rgba(0, 0, 0, 0.08); }
+        .teacher-card:last-child { border-bottom: none; }
+        .teacher-card-reverse { grid-template-columns: 1fr 320px; }
+        .teacher-card-reverse .teacher-image { order: 2; }
+        .teacher-card-reverse .teacher-content { order: 1; }
+        .teacher-image { position: relative; }
+        .teacher-placeholder { aspect-ratio: 5/7; background: var(--color-charcoal); display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; border: 1px solid var(--color-dark); }
+        .teacher-placeholder svg { width: 100%; height: 100%; }
+        .placeholder-text { position: absolute; bottom: 1.5rem; font-family: var(--font-display); font-size: 0.875rem; font-style: italic; color: var(--color-gray); }
+        .teacher-accent { position: absolute; bottom: -20px; right: -20px; width: 100px; height: 100px; border: 1px solid var(--color-burgundy); opacity: 0.3; }
+        .teacher-meta { display: flex; flex-wrap: wrap; gap: 1.5rem; margin-bottom: 0.75rem; }
+        .teacher-origin, .teacher-experience { font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--color-burgundy); }
+        .teacher-name { font-family: var(--font-display); font-size: 2.25rem; font-weight: 400; color: var(--color-charcoal); margin-bottom: 0.5rem; }
+        .teacher-role { font-family: var(--font-display); font-size: 1.125rem; font-style: italic; color: var(--color-gray); margin-bottom: 2rem; }
+        .teacher-bio p { font-size: 1rem; color: var(--color-gray); margin-bottom: 1.5rem; line-height: 1.8; }
+        .teacher-philosophy { margin-top: 2rem; padding: 2rem; background: rgba(107, 15, 26, 0.03); border-left: 2px solid var(--color-burgundy); }
+        .philosophy-label { display: block; font-size: 0.6875rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--color-burgundy); margin-bottom: 0.75rem; }
+        .philosophy-text { font-family: var(--font-display); font-size: 1.125rem; font-style: italic; color: var(--color-charcoal); line-height: 1.6; }
+
+        .school-story { padding: 6rem 0; background: var(--color-cream); }
+        .school-story .container { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+        .story-title { font-family: var(--font-display); font-size: clamp(2rem, 4vw, 2.75rem); font-weight: 400; color: var(--color-charcoal); margin-bottom: 2rem; }
+        .story-text p { font-size: 1rem; color: var(--color-gray); margin-bottom: 1.5rem; line-height: 1.8; }
+        .story-frame { aspect-ratio: 4/3; background: var(--color-charcoal); position: relative; }
+        .story-placeholder { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; color: var(--color-gray); }
+        .placeholder-icon { width: 80px; height: 80px; margin-bottom: 1.5rem; }
+        .placeholder-icon svg { width: 100%; height: 100%; }
+        .story-placeholder span { font-family: var(--font-display); font-style: italic; }
+
+        .values { position: relative; padding: 6rem 0; overflow: hidden; }
+        .values-bg { position: absolute; inset: 0; background: var(--color-charcoal); }
+        .values-bg::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 50%, rgba(107, 15, 26, 0.2) 0%, transparent 60%); }
+        .values .container { position: relative; z-index: 10; }
+        .section-header { text-align: center; margin-bottom: 4rem; }
+        .section-title { font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3rem); font-weight: 400; color: var(--color-cream); }
+        .values-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; }
+        .value-item { text-align: center; padding: 2rem; }
+        .value-item h3 { font-family: var(--font-display); font-size: 1.5rem; font-weight: 400; color: var(--color-gold); margin-bottom: 1rem; }
+        .value-item p { font-size: 0.9375rem; color: var(--color-gray-light); line-height: 1.7; }
+
+        .cta-section { padding: 6rem 0; background: linear-gradient(135deg, var(--color-cream) 0%, #EDE8E0 100%); text-align: center; }
+        .cta-content { max-width: 600px; margin: 0 auto; }
+        .cta-title { font-family: var(--font-display); font-size: clamp(2rem, 4vw, 2.75rem); font-weight: 400; color: var(--color-charcoal); margin-bottom: 1.5rem; }
+        .cta-text { font-size: 1.0625rem; color: var(--color-gray); margin-bottom: 2.5rem; }
+        .btn { display: inline-flex; align-items: center; justify-content: center; font-family: var(--font-body); font-size: 0.8125rem; font-weight: 400; letter-spacing: 0.15em; text-transform: uppercase; padding: 1rem 2rem; border: none; cursor: pointer; transition: 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
+        .btn-primary { background: var(--color-burgundy); color: var(--color-cream); border: 1px solid var(--color-burgundy); }
+        .btn-primary:hover { background: var(--color-wine); border-color: var(--color-wine); transform: translateY(-2px); box-shadow: 0 10px 30px rgba(107, 15, 26, 0.3); }
+
+        .footer { background: var(--color-black); padding: 4rem 0 2rem; }
+        .footer-content { display: flex; justify-content: space-between; gap: 3rem; padding-bottom: 3rem; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
+        .footer-logo { font-family: var(--font-display); font-size: 1.5rem; font-weight: 500; color: var(--color-cream); letter-spacing: 0.05em; display: block; margin-bottom: 1rem; }
+        .footer-tagline { font-size: 0.875rem; color: var(--color-gray); line-height: 1.6; }
+        .footer-links { display: flex; gap: 4rem; }
+        .footer-col h4 { font-family: var(--font-body); font-size: 0.75rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--color-gray); margin-bottom: 1.5rem; }
+        .footer-col ul li { margin-bottom: 0.5rem; }
+        .footer-col a { font-size: 0.9375rem; color: var(--color-gray-light); }
+        .footer-col a:hover { color: var(--color-gold); }
+        .footer-bottom { padding-top: 2rem; text-align: center; }
+        .footer-bottom p { font-size: 0.8125rem; color: var(--color-gray); }
+
+        @media (max-width: 1024px) {
+            .teacher-card, .teacher-card-reverse { grid-template-columns: 1fr; gap: 2rem; }
+            .teacher-card-reverse .teacher-image, .teacher-card-reverse .teacher-content { order: unset; }
+            .teacher-image { max-width: 320px; margin: 0 auto; }
+            .school-story .container { grid-template-columns: 1fr; gap: 3rem; }
+            .story-visual { order: -1; }
+            .story-frame { max-width: 500px; margin: 0 auto; }
+            .values-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 768px) {
+            .nav-menu { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: var(--color-black); flex-direction: column; align-items: center; justify-content: center; gap: 2rem; opacity: 0; visibility: hidden; transition: 0.3s ease; }
+            .nav-menu.active { opacity: 1; visibility: visible; }
+            .nav-link { font-size: 1.25rem; }
+            .nav-toggle { display: flex; position: relative; z-index: 1001; }
+            .nav-toggle.active span:nth-child(1) { transform: rotate(45deg) translate(4px, 4px); }
+            .nav-toggle.active span:nth-child(2) { opacity: 0; }
+            .nav-toggle.active span:nth-child(3) { transform: rotate(-45deg) translate(4px, -4px); }
+            .values-grid { grid-template-columns: 1fr; }
+            .footer-content { flex-direction: column; text-align: center; }
+            .footer-links { justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav" id="nav">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo"><span class="logo-text">Alma del Tango</span></a>
+            <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation"><span></span><span></span><span></span></button>
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="about.html" class="nav-link active">About</a></li>
+                <li><a href="contact.html" class="nav-link">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header class="page-header">
+        <div class="page-header-bg"></div>
+        <div class="container">
+            <div class="page-header-content">
+                <div class="section-label">Our Teachers</div>
+                <h1 class="page-title">Masters of the Embrace</h1>
+                <p class="page-subtitle">Our instructors carry decades of experience from the milongas of Buenos Aires. They don't just teach steps — they transmit a way of feeling.</p>
+            </div>
+        </div>
+    </header>
+
+    <section class="teachers">
+        <div class="container">
+            <article class="teacher-card">
+                <div class="teacher-image">
+                    <div class="teacher-placeholder">
+                        <svg viewBox="0 0 200 280" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="200" height="280" fill="#1a1a1a"/>
+                            <circle cx="100" cy="90" r="40" stroke="#8B0000" stroke-width="0.5"/>
+                            <path d="M60 160 Q100 180 140 160 L150 260 L50 260 Z" stroke="#8B0000" stroke-width="0.5" fill="none"/>
+                            <line x1="100" y1="130" x2="100" y2="170" stroke="#8B0000" stroke-width="0.5"/>
+                        </svg>
+                        <span class="placeholder-text">Portrait</span>
+                    </div>
+                    <div class="teacher-accent"></div>
+                </div>
+                <div class="teacher-content">
+                    <div class="teacher-meta">
+                        <span class="teacher-origin">Buenos Aires, Argentina</span>
+                        <span class="teacher-experience">25 years dancing • 18 years teaching</span>
+                    </div>
+                    <h2 class="teacher-name">Marcelo Ríos</h2>
+                    <p class="teacher-role">Founder & Lead Instructor</p>
+                    <div class="teacher-bio">
+                        <p>Marcelo discovered tango at fifteen in the legendary milongas of San Telmo. By twenty, he was already teaching in the cultural centers of La Boca, learning from the old milongueros who remembered tango's golden age.</p>
+                        <p>His teaching philosophy centers on the embrace as the foundation of all movement. "Without connection," he says, "there is no tango — only choreography."</p>
+                    </div>
+                    <div class="teacher-philosophy">
+                        <span class="philosophy-label">Teaching Philosophy</span>
+                        <p class="philosophy-text">"Tango is patience. It cannot be hurried. Every step must be earned through feeling, not memorization."</p>
+                    </div>
+                </div>
+            </article>
+
+            <article class="teacher-card teacher-card-reverse">
+                <div class="teacher-image">
+                    <div class="teacher-placeholder">
+                        <svg viewBox="0 0 200 280" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="200" height="280" fill="#1a1a1a"/>
+                            <circle cx="100" cy="90" r="40" stroke="#8B0000" stroke-width="0.5"/>
+                            <path d="M70 140 Q100 150 130 140 L145 260 L55 260 Z" stroke="#8B0000" stroke-width="0.5" fill="none"/>
+                        </svg>
+                        <span class="placeholder-text">Portrait</span>
+                    </div>
+                    <div class="teacher-accent"></div>
+                </div>
+                <div class="teacher-content">
+                    <div class="teacher-meta">
+                        <span class="teacher-origin">Córdoba, Argentina</span>
+                        <span class="teacher-experience">22 years dancing • 15 years teaching</span>
+                    </div>
+                    <h2 class="teacher-name">Valentina Aguirre</h2>
+                    <p class="teacher-role">Co-Director & Senior Instructor</p>
+                    <div class="teacher-bio">
+                        <p>Valentina's journey began with classical ballet in Córdoba before she fell irrevocably in love with tango during a summer in Buenos Aires.</p>
+                        <p>Known for her precise technique and deep understanding of the follower's role, Valentina has dedicated herself to empowering dancers to find their own voice within the embrace.</p>
+                    </div>
+                    <div class="teacher-philosophy">
+                        <span class="philosophy-label">Teaching Philosophy</span>
+                        <p class="philosophy-text">"The follower is not passive. She is the heart of the dance — interpreting, embellishing, and completing the conversation."</p>
+                    </div>
+                </div>
+            </article>
+
+            <article class="teacher-card">
+                <div class="teacher-image">
+                    <div class="teacher-placeholder">
+                        <svg viewBox="0 0 200 280" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="200" height="280" fill="#1a1a1a"/>
+                            <circle cx="100" cy="90" r="40" stroke="#8B0000" stroke-width="0.5"/>
+                            <path d="M65 150 Q100 170 135 150 L145 260 L55 260 Z" stroke="#8B0000" stroke-width="0.5" fill="none"/>
+                        </svg>
+                        <span class="placeholder-text">Portrait</span>
+                    </div>
+                    <div class="teacher-accent"></div>
+                </div>
+                <div class="teacher-content">
+                    <div class="teacher-meta">
+                        <span class="teacher-origin">Montevideo, Uruguay</span>
+                        <span class="teacher-experience">20 years dancing • 12 years teaching</span>
+                    </div>
+                    <h2 class="teacher-name">Diego Fernández</h2>
+                    <p class="teacher-role">Instructor & Music Director</p>
+                    <div class="teacher-bio">
+                        <p>Diego brings a musician's soul to his teaching. Trained as a bandoneonist before becoming a dancer, he understands tango from the inside out.</p>
+                        <p>His classes are renowned for their deep dive into musicality. Students learn to distinguish between orchestras and to dance to the breath of the music itself.</p>
+                    </div>
+                    <div class="teacher-philosophy">
+                        <span class="philosophy-label">Teaching Philosophy</span>
+                        <p class="philosophy-text">"When you truly hear the music, your body knows what to do. The orchestra is the third dancer in every embrace."</p>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <section class="school-story">
+        <div class="container">
+            <div class="story-content">
+                <div class="section-label" style="color: var(--color-burgundy);">Our Story</div>
+                <h2 class="story-title">Born from a Shared Dream</h2>
+                <div class="story-text">
+                    <p>Alma del Tango was founded in 2008 by Marcelo and Valentina after years of dancing together in the milongas of Buenos Aires. They shared a vision: to create a space where tango could be learned as a living, breathing art form.</p>
+                    <p>What began as small classes in a borrowed studio has grown into a community of passionate dancers from all walks of life. Our mission remains unchanged — to preserve the soul of Argentine tango.</p>
+                </div>
+            </div>
+            <div class="story-visual">
+                <div class="story-frame">
+                    <div class="story-placeholder">
+                        <div class="placeholder-icon">
+                            <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect x="10" y="20" width="80" height="60" rx="2" stroke="currentColor" stroke-width="0.5"/>
+                                <circle cx="35" cy="45" r="8" stroke="currentColor" stroke-width="0.5"/>
+                                <circle cx="65" cy="45" r="8" stroke="currentColor" stroke-width="0.5"/>
+                                <path d="M43 45 L57 45" stroke="currentColor" stroke-width="0.5"/>
+                            </svg>
+                        </div>
+                        <span>Our Studio</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="values">
+        <div class="values-bg"></div>
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label" style="color: var(--color-gold);">Our Values</div>
+                <h2 class="section-title">What We Believe</h2>
+            </div>
+            <div class="values-grid">
+                <div class="value-item"><h3>Authenticity</h3><p>We teach tango as it was meant to be danced — with respect for its origins and emotional depth.</p></div>
+                <div class="value-item"><h3>Patience</h3><p>True mastery cannot be rushed. We celebrate every small victory on the journey of learning.</p></div>
+                <div class="value-item"><h3>Community</h3><p>Tango is a social dance. We foster connection and friendship among all who share the floor.</p></div>
+                <div class="value-item"><h3>Joy</h3><p>Above all, tango should bring happiness. We seek the smile that comes from true connection.</p></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2 class="cta-title">Ready to Begin?</h2>
+                <p class="cta-text">We welcome dancers of all levels. Whether this is your first step or your thousandth, there is always more to discover.</p>
+                <a href="contact.html" class="btn btn-primary">Get in Touch</a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <span class="footer-logo">Alma del Tango</span>
+                    <p class="footer-tagline">The soul of Buenos Aires,<br>wherever you are.</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-col"><h4>Navigate</h4><ul><li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+                    <div class="footer-col"><h4>Connect</h4><ul><li><a href="#">Instagram</a></li><li><a href="#">Facebook</a></li><li><a href="#">YouTube</a></li></ul></div>
+                </div>
+            </div>
+            <div class="footer-bottom"><p>&copy; 2024 Alma del Tango. All rights reserved.</p></div>
+        </div>
+    </footer>
+
+    <script>
+        const nav = document.getElementById('nav');
+        window.addEventListener('scroll', () => { nav.classList.toggle('scrolled', window.pageYOffset > 100); }, { passive: true });
+        const navToggle = document.getElementById('nav-toggle');
+        const navMenu = document.getElementById('nav-menu');
+        navToggle.addEventListener('click', () => { navToggle.classList.toggle('active'); navMenu.classList.toggle('active'); document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : ''; });
+    </script>
+</body>
+</html>

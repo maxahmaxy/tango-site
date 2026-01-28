@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Contact Alma del Tango. Get in touch to join our classes or visit our studio.">
+    <title>Contact Us | Alma del Tango</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-black: #0a0a0a;
+            --color-charcoal: #1a1a1a;
+            --color-dark: #242424;
+            --color-burgundy: #6B0F1A;
+            --color-wine: #8B0000;
+            --color-cream: #F5F0E8;
+            --color-ivory: #FDFBF7;
+            --color-gold: #C9A962;
+            --color-gold-light: #D4B978;
+            --color-gray: #888888;
+            --color-gray-light: #CCCCCC;
+            --font-display: 'Cormorant Garamond', Georgia, serif;
+            --font-body: 'Jost', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body { font-family: var(--font-body); font-weight: 300; line-height: 1.7; color: var(--color-charcoal); background-color: var(--color-ivory); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+        a { color: inherit; text-decoration: none; transition: 0.3s ease; }
+        ul { list-style: none; }
+        h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 400; line-height: 1.2; }
+        .container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
+
+        .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; padding: 1.5rem 0; background: var(--color-black); transition: 0.3s ease; }
+        .nav.scrolled { backdrop-filter: blur(10px); padding: 1rem 0; }
+        .nav-container { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; display: flex; justify-content: space-between; align-items: center; }
+        .logo-text { font-family: var(--font-display); font-size: 1.5rem; font-weight: 500; color: var(--color-cream); letter-spacing: 0.05em; }
+        .nav-menu { display: flex; gap: 2.5rem; }
+        .nav-link { font-size: 0.875rem; font-weight: 400; color: var(--color-cream); letter-spacing: 0.1em; text-transform: uppercase; position: relative; padding: 0.5rem 0; }
+        .nav-link::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 1px; background: var(--color-gold); transition: 0.3s ease; }
+        .nav-link:hover::after, .nav-link.active::after { width: 100%; }
+        .nav-toggle { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 10px; }
+        .nav-toggle span { width: 24px; height: 1px; background: var(--color-cream); transition: 0.3s ease; }
+
+        .page-header { position: relative; padding: 10rem 0 5rem; background: var(--color-charcoal); overflow: hidden; }
+        .page-header-bg { position: absolute; inset: 0; background: radial-gradient(ellipse at 30% 30%, rgba(107, 15, 26, 0.3) 0%, transparent 50%), radial-gradient(ellipse at 70% 70%, rgba(139, 0, 0, 0.2) 0%, transparent 40%); }
+        .page-header-content { position: relative; z-index: 10; text-align: center; }
+        .section-label { font-size: 0.75rem; font-weight: 400; letter-spacing: 0.3em; text-transform: uppercase; color: var(--color-gold); margin-bottom: 1.5rem; }
+        .page-title { font-family: var(--font-display); font-size: clamp(2.5rem, 5vw, 3.5rem); font-weight: 300; color: var(--color-cream); margin-bottom: 1.5rem; }
+        .page-subtitle { font-size: 1.0625rem; color: var(--color-gray-light); max-width: 600px; margin: 0 auto; line-height: 1.8; }
+
+        .contact { padding: 6rem 0; background: var(--color-ivory); }
+        .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; }
+        .contact-form-title { font-family: var(--font-display); font-size: 1.75rem; font-weight: 400; color: var(--color-charcoal); margin-bottom: 2rem; }
+        .contact-form { display: flex; flex-direction: column; gap: 1.5rem; }
+        .form-group { display: flex; flex-direction: column; gap: 0.5rem; }
+        .form-label { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: var(--color-charcoal); }
+        .form-input { font-family: var(--font-body); font-size: 1rem; padding: 1rem; border: 1px solid rgba(0, 0, 0, 0.1); background: white; transition: 0.3s ease; outline: none; }
+        .form-input:focus { border-color: var(--color-burgundy); box-shadow: 0 0 0 3px rgba(107, 15, 26, 0.1); }
+        .form-input::placeholder { color: var(--color-gray); }
+        .form-select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23888888' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 1rem center; cursor: pointer; }
+        .form-textarea { resize: vertical; min-height: 150px; }
+        .btn { display: inline-flex; align-items: center; justify-content: center; gap: 1rem; font-family: var(--font-body); font-size: 0.8125rem; font-weight: 400; letter-spacing: 0.15em; text-transform: uppercase; padding: 1rem 2rem; border: none; cursor: pointer; transition: 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
+        .btn-primary { background: var(--color-burgundy); color: var(--color-cream); border: 1px solid var(--color-burgundy); width: 100%; }
+        .btn-primary:hover { background: var(--color-wine); border-color: var(--color-wine); transform: translateY(-2px); box-shadow: 0 10px 30px rgba(107, 15, 26, 0.3); }
+        .btn-icon { width: 16px; height: 16px; }
+        .form-success { display: none; text-align: center; padding: 3rem; background: rgba(107, 15, 26, 0.03); border: 1px solid rgba(107, 15, 26, 0.1); }
+        .form-success.active { display: block; }
+        .success-icon { width: 60px; height: 60px; margin: 0 auto 1.5rem; color: var(--color-burgundy); }
+        .success-icon svg { width: 100%; height: 100%; }
+        .form-success h3 { font-family: var(--font-display); font-size: 1.5rem; color: var(--color-charcoal); margin-bottom: 0.75rem; }
+        .form-success p { color: var(--color-gray); }
+
+        .contact-info { display: flex; flex-direction: column; gap: 1.5rem; }
+        .info-card { display: flex; gap: 1.5rem; padding: 1.5rem; background: white; border: 1px solid rgba(0, 0, 0, 0.05); transition: 0.3s ease; }
+        .info-card:hover { border-color: rgba(107, 15, 26, 0.2); transform: translateX(5px); }
+        .info-icon { width: 40px; height: 40px; flex-shrink: 0; color: var(--color-burgundy); }
+        .info-icon svg { width: 100%; height: 100%; }
+        .info-content h3 { font-family: var(--font-display); font-size: 1.125rem; font-weight: 400; color: var(--color-charcoal); margin-bottom: 0.5rem; }
+        .info-content p { font-size: 0.9375rem; color: var(--color-gray); line-height: 1.6; }
+        .info-content a { color: var(--color-burgundy); }
+        .info-content a:hover { text-decoration: underline; }
+        .social-section { padding-top: 1.5rem; border-top: 1px solid rgba(0, 0, 0, 0.08); }
+        .social-section h3 { font-family: var(--font-display); font-size: 1.125rem; font-weight: 400; color: var(--color-charcoal); margin-bottom: 1.5rem; }
+        .social-links { display: flex; gap: 1rem; }
+        .social-link { width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(0, 0, 0, 0.1); color: var(--color-charcoal); transition: 0.3s ease; }
+        .social-link:hover { background: var(--color-burgundy); border-color: var(--color-burgundy); color: var(--color-cream); }
+        .social-link svg { width: 22px; height: 22px; }
+
+        .map-section { height: 400px; background: var(--color-charcoal); position: relative; }
+        .map-placeholder { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+        .map-content { text-align: center; position: relative; z-index: 10; }
+        .map-pin { width: 50px; height: 50px; margin: 0 auto 1.5rem; color: var(--color-gold); }
+        .map-pin svg { width: 100%; height: 100%; }
+        .map-text { font-size: 1rem; color: var(--color-cream); line-height: 1.6; margin-bottom: 0.75rem; }
+        .map-note { font-size: 0.8125rem; color: var(--color-gray); }
+        .map-overlay { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 50%, transparent 0%, var(--color-charcoal) 100%); opacity: 0.5; }
+
+        .footer { background: var(--color-black); padding: 4rem 0 2rem; }
+        .footer-content { display: flex; justify-content: space-between; gap: 3rem; padding-bottom: 3rem; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
+        .footer-logo { font-family: var(--font-display); font-size: 1.5rem; font-weight: 500; color: var(--color-cream); letter-spacing: 0.05em; display: block; margin-bottom: 1rem; }
+        .footer-tagline { font-size: 0.875rem; color: var(--color-gray); line-height: 1.6; }
+        .footer-links { display: flex; gap: 4rem; }
+        .footer-col h4 { font-family: var(--font-body); font-size: 0.75rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--color-gray); margin-bottom: 1.5rem; }
+        .footer-col ul li { margin-bottom: 0.5rem; }
+        .footer-col a { font-size: 0.9375rem; color: var(--color-gray-light); }
+        .footer-col a:hover { color: var(--color-gold); }
+        .footer-bottom { padding-top: 2rem; text-align: center; }
+        .footer-bottom p { font-size: 0.8125rem; color: var(--color-gray); }
+
+        @media (max-width: 1024px) { .contact-grid { grid-template-columns: 1fr; gap: 3rem; } }
+        @media (max-width: 768px) {
+            .nav-menu { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: var(--color-black); flex-direction: column; align-items: center; justify-content: center; gap: 2rem; opacity: 0; visibility: hidden; transition: 0.3s ease; }
+            .nav-menu.active { opacity: 1; visibility: visible; }
+            .nav-link { font-size: 1.25rem; }
+            .nav-toggle { display: flex; position: relative; z-index: 1001; }
+            .nav-toggle.active span:nth-child(1) { transform: rotate(45deg) translate(4px, 4px); }
+            .nav-toggle.active span:nth-child(2) { opacity: 0; }
+            .nav-toggle.active span:nth-child(3) { transform: rotate(-45deg) translate(4px, -4px); }
+            .info-card { flex-direction: column; text-align: center; }
+            .info-icon { margin: 0 auto; }
+            .social-links { justify-content: center; }
+            .footer-content { flex-direction: column; text-align: center; }
+            .footer-links { justify-content: center; }
+            .map-section { height: 300px; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav" id="nav">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo"><span class="logo-text">Alma del Tango</span></a>
+            <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation"><span></span><span></span><span></span></button>
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="contact.html" class="nav-link active">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header class="page-header">
+        <div class="page-header-bg"></div>
+        <div class="container">
+            <div class="page-header-content">
+                <div class="section-label">Get in Touch</div>
+                <h1 class="page-title">Start Your Tango Journey</h1>
+                <p class="page-subtitle">We'd love to hear from you. Whether you have questions about our classes, want to visit the studio, or are ready to take your first step — reach out.</p>
+            </div>
+        </div>
+    </header>
+
+    <section class="contact">
+        <div class="container">
+            <div class="contact-grid">
+                <div class="contact-form-wrapper">
+                    <h2 class="contact-form-title">Send Us a Message</h2>
+                    <form class="contact-form" id="contact-form">
+                        <div class="form-group">
+                            <label for="name" class="form-label">Your Name</label>
+                            <input type="text" id="name" name="name" class="form-input" placeholder="Enter your full name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email" class="form-label">Email Address</label>
+                            <input type="email" id="email" name="email" class="form-input" placeholder="Enter your email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="subject" class="form-label">Subject</label>
+                            <select id="subject" name="subject" class="form-input form-select">
+                                <option value="">Select a topic</option>
+                                <option value="beginner">Beginner Classes</option>
+                                <option value="intermediate">Intermediate/Advanced Classes</option>
+                                <option value="private">Private Lessons</option>
+                                <option value="events">Events & Milongas</option>
+                                <option value="other">Other Inquiry</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="message" class="form-label">Your Message</label>
+                            <textarea id="message" name="message" class="form-input form-textarea" placeholder="Tell us about yourself and what brings you to tango..." rows="5" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">
+                            <span>Send Message</span>
+                            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13M22 2L15 22L11 13M22 2L2 9L11 13"/></svg>
+                        </button>
+                    </form>
+                    <div class="form-success" id="form-success">
+                        <div class="success-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 12L11 15L16 9"/></svg></div>
+                        <h3>Message Sent</h3>
+                        <p>Thank you for reaching out. We'll respond within 24 hours.</p>
+                    </div>
+                </div>
+
+                <div class="contact-info">
+                    <div class="info-card">
+                        <div class="info-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+                        <div class="info-content">
+                            <h3>Visit Our Studio</h3>
+                            <p>Calle Defensa 1234<br>San Telmo, Buenos Aires<br>Argentina</p>
+                        </div>
+                    </div>
+
+                    <div class="info-card">
+                        <div class="info-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="M22 6l-10 7L2 6"/></svg></div>
+                        <div class="info-content">
+                            <h3>Email Us</h3>
+                            <p><a href="mailto:hola@almadeltango.com">hola@almadeltango.com</a></p>
+                        </div>
+                    </div>
+
+                    <div class="info-card">
+                        <div class="info-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg></div>
+                        <div class="info-content">
+                            <h3>Call Us</h3>
+                            <p><a href="tel:+5411-4567-8900">+54 11 4567-8900</a></p>
+                        </div>
+                    </div>
+
+                    <div class="info-card">
+                        <div class="info-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
+                        <div class="info-content">
+                            <h3>Studio Hours</h3>
+                            <p>Monday – Friday: 10am – 10pm<br>Saturday: 11am – 8pm<br>Sunday: Milonga nights only</p>
+                        </div>
+                    </div>
+
+                    <div class="social-section">
+                        <h3>Follow Our Journey</h3>
+                        <div class="social-links">
+                            <a href="#" class="social-link" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+                            <a href="#" class="social-link" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a>
+                            <a href="#" class="social-link" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22.54 6.42a2.78 2.78 0 00-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 00-1.94 2A29 29 0 001 11.75a29 29 0 00.46 5.33A2.78 2.78 0 003.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 001.94-2 29 29 0 00.46-5.25 29 29 0 00-.46-5.33z"/><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"/></svg></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="map-section">
+        <div class="map-placeholder">
+            <div class="map-content">
+                <div class="map-pin"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+                <p class="map-text"><strong>Alma del Tango</strong><br>San Telmo, Buenos Aires, Argentina</p>
+                <span class="map-note">Interactive map would display here</span>
+            </div>
+            <div class="map-overlay"></div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <span class="footer-logo">Alma del Tango</span>
+                    <p class="footer-tagline">The soul of Buenos Aires,<br>wherever you are.</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-col"><h4>Navigate</h4><ul><li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+                    <div class="footer-col"><h4>Connect</h4><ul><li><a href="#">Instagram</a></li><li><a href="#">Facebook</a></li><li><a href="#">YouTube</a></li></ul></div>
+                </div>
+            </div>
+            <div class="footer-bottom"><p>&copy; 2024 Alma del Tango. All rights reserved.</p></div>
+        </div>
+    </footer>
+
+    <script>
+        const nav = document.getElementById('nav');
+        window.addEventListener('scroll', () => { nav.classList.toggle('scrolled', window.pageYOffset > 100); }, { passive: true });
+        
+        const navToggle = document.getElementById('nav-toggle');
+        const navMenu = document.getElementById('nav-menu');
+        navToggle.addEventListener('click', () => { navToggle.classList.toggle('active'); navMenu.classList.toggle('active'); document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : ''; });
+
+        const form = document.getElementById('contact-form');
+        const formSuccess = document.getElementById('form-success');
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const submitBtn = form.querySelector('button[type="submit"]');
+            submitBtn.innerHTML = '<span>Sending...</span>';
+            submitBtn.disabled = true;
+            setTimeout(() => {
+                form.style.display = 'none';
+                formSuccess.classList.add('active');
+            }, 1500);
+        });
+    </script>
+</body>
+</html>
