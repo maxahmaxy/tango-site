@@ -1,0 +1,18 @@
+# Git
+.git
+.gitignore
+
+# Zone identifiers
+*:Zone.Identifier
+
+# Unnecessary files
+README.md
+*.zip
+*.log
+
+# CI/CD
+.github/
+
+# IDE
+.idea/
+.vscode/
