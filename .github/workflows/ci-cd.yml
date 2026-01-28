@@ -115,8 +115,8 @@ jobs:
       - name: Deploy to Azure Container Instances
         uses: azure/aci-deploy@v1
         with:
-          resource-group: tango-site-rg
-          dns-name-label: tango-site
+          resource-group: tango-site-prod-rg
+          dns-name-label: tango-site-prod
           image: ${{ secrets.ACR_LOGIN_SERVER }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
           registry-login-server: ${{ secrets.ACR_LOGIN_SERVER }}
           registry-username: ${{ secrets.ACR_USERNAME }}
