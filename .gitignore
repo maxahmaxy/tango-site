@@ -1,0 +1,25 @@
+# Windows zone identifiers
+*:Zone.Identifier
+*.Zone.Identifier
+
+# Dependencies
+node_modules/
+
+# Build outputs
+dist/
+build/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Docker
+.docker/
+
+# Logs
+*.log
